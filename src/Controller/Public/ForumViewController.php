@@ -12,9 +12,9 @@ class ForumViewController extends AbstractController
     #[Route('/forum/{id}', name: 'app_forum_view')]
     public function index(ForumRepository $forumRepository, int $id): Response
     {
-        $forums = $forumRepository->findBy(['id' => $id]);
-        return $this->render('public/index.html.twig', [
-            'forums' => $forums,
+        $forum = $forumRepository->findOneBy(['id' => $id]);
+        return $this->render('public/forum_view.html.twig', [
+            'forum' => $forum,
         ]);
     }
 }

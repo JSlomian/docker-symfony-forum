@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    {% if forum.SubforumTo.SubforumTo == null %}
+        <a href="{{ path('app_home') }}">Back</a>
+    {% else %}
+        <a href="{{ path('app_forum_view', { id: forum.SubforumTo }) }}">Back</a>
+    {% endif %}
+    {% include 'public/forum_list.html.twig' with { forums : forum.forums } %}
+{% endblock %}

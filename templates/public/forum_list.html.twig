@@ -1,10 +1,13 @@
-{% if forums is not empty %}
-    {% for forum in forums %}
-        {% if forum.subforumTo == null %}
-            <ul>
-                <li><a href="{{ path('app_forum_view', {id: forum.id}) }}">{{ forum.name }}</a></li>
-                {% include 'public/forum_list.html.twig' with {forums: forum.getForums} %}
-            </ul>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+{% for forum in forums %}
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold">
+                    <a href="{{ path('app_forum_view', {id: forum.id}) }}">{{ forum.name }}</a>
+                </div>
+                {{ forum.description }}
+            </div>
+        {% include 'public/forum_list.html.twig' with {forums: forum.forums} %}
+        </li>
+    </ul>
+{% endfor %}
