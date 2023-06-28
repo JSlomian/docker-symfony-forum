@@ -1,0 +1,10 @@
+{% if forums is not empty %}
+    {% for forum in forums %}
+        {% if forum.subforumTo == null %}
+            <ul>
+                <li><a href="{{ path('app_forum_view', {id: forum.id}) }}">{{ forum.name }}</a></li>
+                {% include 'public/forum_list.html.twig' with {forums: forum.getForums} %}
+            </ul>
+        {% endif %}
+    {% endfor %}
+{% endif %}
