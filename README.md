@@ -1,3 +1,8 @@
+# Simple forum
+for admin login admin@forum.com:admin
+for user login user@forum.com:user
+or create your own user and intercept with mailcatcher or with symfony profiler
+
 # Symfony Docker
 
 A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework, with full [HTTP/2](https://symfony.com/doc/current/weblink.html), HTTP/3 and HTTPS support.
