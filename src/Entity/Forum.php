@@ -16,26 +16,30 @@ class Forum
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
-    private ?string $Name = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Description = null;
 
     #[ORM\Column]
-    private ?bool $IsForum = null;
+    private ?bool $isForum = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $ListOrder = null;
+    private ?int $listOrder = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'forums')]
-    private ?self $SubforumTo = null;
+    private ?self $subforumTo = null;
 
-    #[ORM\OneToMany(mappedBy: 'SubforumTo', targetEntity: self::class)]
+    #[ORM\OneToMany(mappedBy: 'subforumTo', targetEntity: self::class)]
     private Collection $forums;
+
+    #[ORM\OneToMany(mappedBy: 'forum', targetEntity: Post::class)]
+    private Collection $posts;
 
     public function __construct()
     {
         $this->forums = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -45,12 +49,12 @@ class Forum
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): static
+    public function setName(string $name): static
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
@@ -67,38 +71,38 @@ class Forum
         return $this;
     }
 
-    public function isIsForum(): ?bool
+    public function isForum(): ?bool
     {
-        return $this->IsForum;
+        return $this->isForum;
     }
 
-    public function setIsForum(bool $IsForum): static
+    public function setIsForum(bool $isForum): static
     {
-        $this->IsForum = $IsForum;
+        $this->isForum = $isForum;
 
         return $this;
     }
 
     public function getListOrder(): ?int
     {
-        return $this->ListOrder;
+        return $this->listOrder;
     }
 
-    public function setListOrder(?int $ListOrder): static
+    public function setListOrder(?int $listOrder): static
     {
-        $this->ListOrder = $ListOrder;
+        $this->listOrder = $listOrder;
 
         return $this;
     }
 
     public function getSubforumTo(): ?self
     {
-        return $this->SubforumTo;
+        return $this->subforumTo;
     }
 
-    public function setSubforumTo(?self $SubforumTo): static
+    public function setSubforumTo(?self $subforumTo): static
     {
-        $this->SubforumTo = $SubforumTo;
+        $this->subforumTo = $subforumTo;
 
         return $this;
     }
@@ -127,6 +131,36 @@ class Forum
             // set the owning side to null (unless already changed)
             if ($forum->getSubforumTo() === $this) {
                 $forum->setSubforumTo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): static
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setForum($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): static
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getForum() === $this) {
+                $post->setForum(null);
             }
         }
 

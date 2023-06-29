@@ -12,7 +12,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ForumRepository $forumRepository): Response
     {
-        $forums = $forumRepository->findBy(['SubforumTo' => null]);
+        $forums = $forumRepository->findBy(['subforumTo' => null]);
         return $this->render('public/index.html.twig', [
             'forums' => $forums,
         ]);

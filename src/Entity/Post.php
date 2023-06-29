@@ -15,20 +15,24 @@ class Post
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $Title = null;
+    private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $Content = null;
+    private ?string $content = null;
 
     #[ORM\Column]
-    private ?bool $IsTopic = null;
+    private ?bool $isTopic = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $ReplyTo = null;
+    private ?int $replyTo = null;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $Creator = null;
+    private ?User $creator = null;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Forum $forum = null;
 
     public function getId(): ?int
     {
@@ -37,60 +41,72 @@ class Post
 
     public function getTitle(): ?string
     {
-        return $this->Title;
+        return $this->title;
     }
 
-    public function setTitle(?string $Title): static
+    public function setTitle(?string $title): static
     {
-        $this->Title = $Title;
+        $this->title = $title;
 
         return $this;
     }
 
     public function getContent(): ?string
     {
-        return $this->Content;
+        return $this->content;
     }
 
-    public function setContent(string $Content): static
+    public function setContent(string $content): static
     {
-        $this->Content = $Content;
+        $this->content = $content;
 
         return $this;
     }
 
-    public function isIsTopic(): ?bool
+    public function isTopic(): ?bool
     {
-        return $this->IsTopic;
+        return $this->isTopic;
     }
 
-    public function setIsTopic(bool $IsTopic): static
+    public function setIsTopic(bool $isTopic): static
     {
-        $this->IsTopic = $IsTopic;
+        $this->isTopic = $isTopic;
 
         return $this;
     }
 
     public function getReplyTo(): ?int
     {
-        return $this->ReplyTo;
+        return $this->replyTo;
     }
 
-    public function setReplyTo(?int $ReplyTo): static
+    public function setReplyTo(?int $replyTo): static
     {
-        $this->ReplyTo = $ReplyTo;
+        $this->replyTo = $replyTo;
 
         return $this;
     }
 
     public function getCreator(): ?User
     {
-        return $this->Creator;
+        return $this->creator;
     }
 
-    public function setCreator(?User $Creator): static
+    public function setCreator(?User $creator): static
     {
-        $this->Creator = $Creator;
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    public function getForum(): ?Forum
+    {
+        return $this->forum;
+    }
+
+    public function setForum(?Forum $forum): static
+    {
+        $this->forum = $forum;
 
         return $this;
     }

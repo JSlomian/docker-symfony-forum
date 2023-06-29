@@ -15,7 +15,7 @@ class ForumCreateController extends AbstractController
 {
     #[Route('/admin/forum/create', name: 'app_admin_forum_create')]
     public function index(
-        Request $request,
+        Request                $request,
         EntityManagerInterface $em
     ): Response
     {
@@ -29,7 +29,6 @@ class ForumCreateController extends AbstractController
             $this->addFlash('success', 'Forum added');
         }
         if ($form->isSubmitted() && !$form->isValid()) {
-            dump($form->getErrors(true));
             $this->addFlash('danger', 'Couldn\'t add new forum');
         }
         return $this->render('admin/forum_create.html.twig', [

@@ -3,10 +3,30 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    {% if forum.SubforumTo.SubforumTo == null %}
+    {% if forum.subforumTo is defined and forum.subforumTo is null %}
         <a href="{{ path('app_home') }}">Back</a>
     {% else %}
-        <a href="{{ path('app_forum_view', { id: forum.SubforumTo }) }}">Back</a>
+        <a href="{{ path('app_forum_view', { id: forum.subforumTo.id }) }}">Back</a>
     {% endif %}
     {% include 'public/forum_list.html.twig' with { forums : forum.forums } %}
+    {% if forum.isForum %}
+        <a class="btn btn-info" href="{{ path('app_topic_create', { id: forum.id}) }}" role="button">
+            Create Topic in
+            this forum
+        </a>
+    {% else %}
+        <a class="btn btn-secondary" role="button" disabled>Categories cannot have topic in them</a>
+    {% endif %}
+    {% for topic in topics %}
+    <div class="card">
+        <div class="card-header">
+            {{ topic.creator.email }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ topic.title }}</h5>
+            <p class="card-text">{{ topic.content }}</p>
+            <a href="{{ path('app_topic_view', { id: topic.id }) }}" class="btn btn-primary">View topic</a>
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <a class="btn btn-info" href="{{ path('app_topic_reply', { id: topic.id}) }}" role="button">
+    Add Reply
+    </a>
+    <div class="card">
+        <div class="card-header">
+            {{ topic.creator.email }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ topic.title }}</h5>
+            <p class="card-text">{{ topic.content }}</p>
+        </div>
+    </div>
+    {% for reply in replies %}
+        <div class="card">
+            <div class="card-header">
+                {{ reply.creator.email }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ topic.title }}</h5>
+                <p class="card-text">{{ topic.content }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    <a class="btn btn-info" href="{{ path('app_topic_reply', { id: topic.id}) }}" role="button">
+        Add Reply
+    </a>
+{% endblock %}

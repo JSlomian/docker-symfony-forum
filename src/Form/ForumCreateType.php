@@ -15,14 +15,19 @@ class ForumCreateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Name')
-            ->add('Description')
-            ->add('IsForum', CheckboxType::class, options: [
+            ->add('name')
+            ->add('description')
+            ->add('isForum', CheckboxType::class, options: [
                 'label' => 'Can create topics',
                 'required' => false,
                 'empty_data' => false
             ])
-            ->add('SubforumTo', EntityType::class, ['class' => Forum::class, 'choice_label' => 'Name'])
+            ->add('subforumTo', EntityType::class, [
+                'class' => Forum::class,
+                'choice_label' => 'Name',
+                'placeholder' => 'Top level',
+                'required' => false
+            ])
             ->add('Submit', SubmitType::class);
     }
 
