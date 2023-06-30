@@ -6,9 +6,11 @@ use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class TopicViewController extends AbstractController
 {
+    #[IsGranted('IS_AUTHENTICATED')]
     #[Route('/topic/{id}', name: 'app_topic_view')]
     public function index(
         PostRepository $postRepository,
